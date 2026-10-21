@@ -1,0 +1,158 @@
+<Window x:Class="AbdouSales.Views.CashierWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:svc="clr-namespace:AbdouSales.Services"
+        Title="{DynamicResource S037}" Height="620" Width="1160" MinHeight="540" MinWidth="900"
+        WindowStartupLocation="CenterScreen"
+        FlowDirection="{DynamicResource AppFlowDirection}" FontFamily="Segoe UI" Foreground="{DynamicResource BrushFieldText}"
+        Background="{DynamicResource BrushBackground}"
+        Loaded="Window_Loaded">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="{DynamicResource S038}" FontSize="22" FontWeight="Bold"
+                   Foreground="{StaticResource BrushTeal}" Margin="0,0,0,12"/>
+
+        <!-- ===== شريط المسح ===== -->
+        <Border Grid.Row="1" Background="{DynamicResource BrushSurface}" CornerRadius="10" Padding="16" BorderBrush="{DynamicResource BrushBorder}" BorderThickness="1" Margin="0,0,0,12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2.4*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="1.6*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="{DynamicResource S039}" Style="{StaticResource InputLabel}"/>
+                    <TextBox x:Name="BarcodeBox" FontSize="18" MinHeight="42" KeyDown="BarcodeBox_KeyDown"/>
+                </StackPanel>
+
+                <StackPanel svc:UiVisibility.Key="Cashier.ScanQuantityBox" Grid.Column="2" VerticalAlignment="Bottom">
+                    <TextBlock Text="{DynamicResource S040}" Style="{StaticResource InputLabel}"/>
+                    <TextBox x:Name="ScanQuantityBox" Width="70" MinHeight="42" FontSize="16" Text="1" TextAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel svc:UiVisibility.Key="Cashier.ProductPickerCombo" Grid.Column="4">
+                    <TextBlock Text="{DynamicResource S041}" Style="{StaticResource InputLabel}"/>
+                    <ComboBox x:Name="ProductPickerCombo" DisplayMemberPath="Name" SelectionChanged="ProductPickerCombo_SelectionChanged"/>
+                </StackPanel>
+
+                <Button svc:UiVisibility.Key="Cashier.FocusBarcode_Click" Grid.Column="6" Content="{DynamicResource S042}" Style="{StaticResource SecondaryButton}"
+                        VerticalAlignment="Bottom" Click="FocusBarcode_Click"/>
+            </Grid>
+        </Border>
+
+        <!-- ===== سلة المبيعات ===== -->
+        <Border Grid.Row="2" Background="{DynamicResource BrushSurface}" CornerRadius="10" Padding="12" BorderBrush="{DynamicResource BrushBorder}" BorderThickness="1" Margin="0,0,0,12">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="4,0,4,8">
+                    <TextBlock Text="{DynamicResource S043}" FontWeight="Bold" FontSize="15" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                    <TextBlock x:Name="ItemCountText" Text="{DynamicResource S044}" VerticalAlignment="Center" Foreground="{DynamicResource BrushTextMuted}"/>
+                </StackPanel>
+
+                <DataGrid Grid.Row="1" x:Name="CartGrid" AutoGenerateColumns="False" CanUserAddRows="False"
+                          Background="{DynamicResource BrushSurface}" BorderBrush="{DynamicResource BrushBorder}" BorderThickness="1"
+                          HeadersVisibility="Column" RowHeight="38" CanUserResizeRows="False"
+                          CellEditEnding="CartGrid_CellEditEnding">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{DynamicResource S045}" Binding="{Binding ProductName}" Width="2.6*" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="{DynamicResource S016}" Binding="{Binding Unit}" Width="*" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="{DynamicResource S040}" Binding="{Binding Quantity}" Width="*"/>
+                        <DataGridTextColumn Header="{DynamicResource S025}" Binding="{Binding UnitPrice}" Width="1.3*"/>
+                        <DataGridTextColumn Header="{DynamicResource S046}" Binding="{Binding Total, StringFormat={}{0:N2}}" Width="1.3*" IsReadOnly="True"/>
+                        <DataGridTemplateColumn Header="" Width="60">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="🗑" Background="Transparent" BorderThickness="0"
+                                            Foreground="#E05555" FontSize="16" Cursor="Hand"
+                                            Click="RemoveCartLine_Click"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+
+        <!-- ===== الدفع والمجاميع ===== -->
+        <Border Grid.Row="3" Background="{DynamicResource BrushSurface}" CornerRadius="10" Padding="16" BorderBrush="{DynamicResource BrushBorder}" BorderThickness="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.3*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="1.1*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- الزبون وطريقة الدفع -->
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="{DynamicResource S003}" Style="{StaticResource InputLabel}"/>
+                    <TextBox x:Name="CustomerNameBox" Text="{DynamicResource S047}" Margin="0,0,0,8"/>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel svc:UiVisibility.Key="Cashier.PaymentMethodCombo" Margin="0,0,10,0">
+                            <TextBlock Text="{DynamicResource S048}" Style="{StaticResource InputLabel}"/>
+                            <ComboBox x:Name="PaymentMethodCombo" Width="130">
+                                <ComboBoxItem Content="{DynamicResource S049}" IsSelected="True"/>
+                                <ComboBoxItem Content="{DynamicResource S050}"/>
+                                <ComboBoxItem Content="{DynamicResource S051}"/>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel svc:UiVisibility.Key="Cashier.VatRateBox">
+                            <TextBlock Text="{DynamicResource S052}" Style="{StaticResource InputLabel}"/>
+                            <TextBox x:Name="VatRateBox" Width="90" Text="19" TextChanged="Totals_Changed"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- المجاميع -->
+                <StackPanel Grid.Column="2">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,4">
+                        <TextBlock Text="{DynamicResource S053}" Width="150"/>
+                        <TextBlock x:Name="SubTotalText" Text="0.00 د.ج" FontWeight="SemiBold" Width="120"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,4">
+                        <TextBlock Text="{DynamicResource S054}" Width="150"/>
+                        <TextBlock x:Name="VatText" Text="0.00 د.ج" FontWeight="SemiBold" Width="120"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock Text="{DynamicResource S055}" Width="150" FontWeight="Bold" FontSize="17"/>
+                        <TextBlock x:Name="GrandTotalText" Text="0.00 د.ج" FontWeight="Bold" FontSize="17" Width="140" Foreground="{StaticResource BrushTeal}"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- المبلغ المستلم والباقي -->
+                <StackPanel svc:UiVisibility.Key="Cashier.AmountReceivedBox" Grid.Column="4">
+                    <TextBlock Text="{DynamicResource S056}" Style="{StaticResource InputLabel}"/>
+                    <TextBox x:Name="AmountReceivedBox" FontSize="16" Margin="0,0,0,6" TextChanged="Totals_Changed"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{DynamicResource S057}" FontWeight="Bold" FontSize="15" Width="60"/>
+                        <TextBlock x:Name="ChangeText" Text="0.00 د.ج" FontWeight="Bold" FontSize="15" Foreground="{StaticResource BrushGreen}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,14,0,0">
+            <Button svc:UiVisibility.Key="Cashier.Checkout_Click" Content="{DynamicResource S058}" Style="{StaticResource ActionButton}" Background="{StaticResource BrushTeal}" Click="Checkout_Click" Margin="0,0,8,0"/>
+            <Button svc:UiVisibility.Key="Cashier.SaveOnly_Click" Content="{DynamicResource S059}" Style="{StaticResource ActionButton}" Click="SaveOnly_Click" Margin="0,0,8,0"/>
+            <Button svc:UiVisibility.Key="Cashier.ClearCart_Click" Content="{DynamicResource S060}" Style="{StaticResource DangerButton}" Click="ClearCart_Click" Margin="0,0,8,0"/>
+            <Button svc:UiVisibility.Key="Cashier.Close_Click" Content="{DynamicResource S012}" Style="{StaticResource SecondaryButton}" Click="Close_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

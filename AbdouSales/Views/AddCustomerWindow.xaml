@@ -1,0 +1,96 @@
+<Window x:Class="AbdouSales.Views.AddCustomerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:svc="clr-namespace:AbdouSales.Services"
+        Title="{DynamicResource S001}" Height="600" Width="780"
+        WindowStartupLocation="CenterScreen"
+        FlowDirection="{DynamicResource AppFlowDirection}" FontFamily="Segoe UI" Foreground="{DynamicResource BrushFieldText}"
+        Background="{DynamicResource BrushBackground}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="{DynamicResource S002}" FontSize="22" FontWeight="Bold"
+                   Foreground="{StaticResource BrushGreen}" Margin="0,0,0,16"/>
+
+        <Border Grid.Row="1" Background="{DynamicResource BrushSurface}" CornerRadius="10" Padding="20" BorderBrush="{DynamicResource BrushBorder}" BorderThickness="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0">
+                    <TextBlock Text="{DynamicResource S003}" Style="{StaticResource InputLabel}"/>
+                    <TextBox svc:FieldHint.Text="{DynamicResource S166}" x:Name="NameBox"/>
+                </StackPanel>
+                <StackPanel svc:UiVisibility.Key="AddCustomer.ActivityBox" Grid.Row="0" Grid.Column="2">
+                    <TextBlock Text="{DynamicResource S004}" Style="{StaticResource InputLabel}"/>
+                    <TextBox svc:FieldHint.Text="{DynamicResource S167}" x:Name="ActivityBox"/>
+                </StackPanel>
+
+                <StackPanel svc:UiVisibility.Key="AddCustomer.AddressBox" Grid.Row="2" Grid.Column="0">
+                    <TextBlock Text="{DynamicResource S005}" Style="{StaticResource InputLabel}"/>
+                    <TextBox svc:FieldHint.Text="{DynamicResource S168}" x:Name="AddressBox"/>
+                </StackPanel>
+                <StackPanel svc:UiVisibility.Key="AddCustomer.PhoneBox" Grid.Row="2" Grid.Column="2">
+                    <TextBlock Text="{DynamicResource S006}" Style="{StaticResource InputLabel}"/>
+                    <TextBox svc:FieldHint.Text="{DynamicResource S169}" x:Name="PhoneBox" FlowDirection="RightToLeft"/>
+                </StackPanel>
+
+                <StackPanel svc:UiVisibility.Key="AddCustomer.CommercialRegisterBox" Grid.Row="4" Grid.Column="0">
+                    <TextBlock Text="{DynamicResource S007}" Style="{StaticResource InputLabel}"/>
+                    <TextBox svc:FieldHint.Text="{DynamicResource S170}" x:Name="CommercialRegisterBox" svc:BidiText.KeepOrder="True" TextAlignment="Left" FlowDirection="LeftToRight" TextChanged="CommercialRegisterBox_TextChanged"/>
+                </StackPanel>
+                <StackPanel svc:UiVisibility.Key="AddCustomer.TaxIdBox" Grid.Row="4" Grid.Column="2">
+                    <TextBlock Text="{DynamicResource S008}" Style="{StaticResource InputLabel}"/>
+                    <TextBox svc:FieldHint.Text="{DynamicResource S171}" x:Name="TaxIdBox" FlowDirection="RightToLeft"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="2" Margin="0,16,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,8">
+                <Button svc:UiVisibility.Key="AddCustomer.Save_Click" Content="{DynamicResource S009}" Style="{StaticResource ActionButton}" Background="{StaticResource BrushGreen}" Click="Save_Click" Margin="0,0,8,0"/>
+                <Button svc:UiVisibility.Key="AddCustomer.Delete_Click" Content="{DynamicResource S010}" Style="{StaticResource DangerButton}" Click="Delete_Click" Margin="0,0,8,0"/>
+                <Button svc:UiVisibility.Key="AddCustomer.Clear_Click" Content="{DynamicResource S011}" Style="{StaticResource SecondaryButton}" Click="Clear_Click"/>
+                <Button svc:UiVisibility.Key="AddCustomer.ImportExcel_Click" Content="{DynamicResource S161}" Style="{StaticResource SecondaryButton}" Click="ImportExcel_Click" Margin="16,0,8,0"/>
+                <Button svc:UiVisibility.Key="AddCustomer.ExcelTemplate_Click" Content="{DynamicResource S162}" Style="{StaticResource SecondaryButton}" Click="ExcelTemplate_Click"/>
+            </StackPanel>
+
+            <DataGrid Grid.Row="1" x:Name="CustomersGrid" MinHeight="180" MaxHeight="420" AutoGenerateColumns="False" IsReadOnly="True"
+                      SelectionMode="Single" CanUserAddRows="False" MouseDoubleClick="CustomersGrid_MouseDoubleClick"
+                      Background="{DynamicResource BrushSurface}" BorderBrush="{DynamicResource BrushBorder}" BorderThickness="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="{DynamicResource S003}" Binding="{Binding Name}" Width="*" ElementStyle="{StaticResource WrapCellText}"/>
+                    <DataGridTextColumn Header="{DynamicResource S004}" Binding="{Binding Activity}" Width="*" ElementStyle="{StaticResource WrapCellText}"/>
+                    <DataGridTextColumn Header="{DynamicResource S005}" Binding="{Binding Address}" Width="*" ElementStyle="{StaticResource WrapCellText}"/>
+                    <DataGridTextColumn Header="{DynamicResource S006}" Binding="{Binding Phone}" Width="120" ElementStyle="{StaticResource LtrCellText}"/>
+                    <DataGridTextColumn Header="{DynamicResource S007}" Binding="{Binding CommercialRegister, Mode=OneWay, Converter={StaticResource BidiOrder}}" Width="140" ElementStyle="{StaticResource LtrCellText}"/>
+                    <DataGridTextColumn Header="{DynamicResource S008}" Binding="{Binding TaxId}" Width="140" ElementStyle="{StaticResource LtrCellText}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Button svc:UiVisibility.Key="AddCustomer.Close_Click" Grid.Row="2" Content="{DynamicResource S012}" Style="{StaticResource SecondaryButton}" HorizontalAlignment="Left" Margin="0,12,0,0" Click="Close_Click"/>
+        </Grid>
+    </Grid>
+    </ScrollViewer>
+</Window>

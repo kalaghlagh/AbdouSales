@@ -1,0 +1,103 @@
+<Window x:Class="AbdouSales.Views.ShareInvoiceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:svc="clr-namespace:AbdouSales.Services"
+        Title="{DynamicResource S102}" Height="580" Width="620"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        FlowDirection="{DynamicResource AppFlowDirection}" FontFamily="Segoe UI" Foreground="{DynamicResource BrushFieldText}"
+        Background="{DynamicResource BrushBackground}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="{DynamicResource S103}"
+                   FontSize="21" FontWeight="Bold"
+                   Foreground="{DynamicResource BrushHeading}" Margin="0,0,0,12"/>
+
+        <!-- معلومات الملف -->
+        <Border Grid.Row="1" Background="{DynamicResource BrushSurface}" BorderBrush="{DynamicResource BrushBorder}"
+                BorderThickness="1" CornerRadius="8" Padding="12" Margin="0,0,0,14">
+            <StackPanel>
+                <TextBlock Text="{DynamicResource S104}" Style="{StaticResource InputLabel}"/>
+                <TextBlock x:Name="PathText" TextWrapping="Wrap" FontSize="13"
+                           Foreground="{DynamicResource BrushFieldText}" FlowDirection="LeftToRight"
+                           HorizontalAlignment="Right" Margin="0,2,0,8"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button svc:UiVisibility.Key="ShareInvoice.OpenFolder_Click" Content="{DynamicResource S105}" Style="{StaticResource SecondaryButton}"
+                            Click="OpenFolder_Click" Margin="0,0,8,0"/>
+                    <Button svc:UiVisibility.Key="ShareInvoice.OpenPdf_Click" Content="{DynamicResource S106}" Style="{StaticResource SecondaryButton}"
+                            Click="OpenPdf_Click" Margin="0,0,8,0"/>
+                    <Button svc:UiVisibility.Key="ShareInvoice.SaveAs_Click" Content="{DynamicResource S107}" Style="{StaticResource SecondaryButton}"
+                            Click="SaveAs_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- رقم الهاتف -->
+        <Border Grid.Row="2" Background="{DynamicResource BrushSurface}" BorderBrush="{DynamicResource BrushBorder}"
+                BorderThickness="1" CornerRadius="8" Padding="12" Margin="0,0,0,14">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel svc:UiVisibility.Key="ShareInvoice.PhoneBox" Grid.Column="0" Margin="0,0,8,0">
+                    <TextBlock Text="{DynamicResource S108}" Style="{StaticResource InputLabel}"/>
+                    <TextBox svc:FieldHint.Text="{DynamicResource S169}" x:Name="PhoneBox" FlowDirection="LeftToRight"/>
+                    <TextBlock Text="{DynamicResource S109}"
+                               FontSize="11" Foreground="{DynamicResource BrushTextMuted}" Margin="2,4,0,0"/>
+                </StackPanel>
+                <StackPanel svc:UiVisibility.Key="ShareInvoice.EmailBox" Grid.Column="1" Margin="8,0,0,0">
+                    <TextBlock Text="{DynamicResource S110}" Style="{StaticResource InputLabel}"/>
+                    <TextBox x:Name="EmailBox" FlowDirection="LeftToRight"/>
+                    <TextBlock Text="{DynamicResource S111}"
+                               FontSize="11" Foreground="{DynamicResource BrushTextMuted}" Margin="2,4,0,0"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- أزرار المشاركة -->
+        <Grid Grid.Row="3" Margin="0,0,0,14">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button svc:UiVisibility.Key="ShareInvoice.WhatsApp_Click" Grid.Column="0" Content="{DynamicResource S112}" Height="52" FontSize="16"
+                    Style="{StaticResource ActionButton}" Background="#25D366"
+                    Click="WhatsApp_Click" Margin="0,0,7,0"/>
+            <Button svc:UiVisibility.Key="ShareInvoice.Gmail_Click" Grid.Column="1" Content="{DynamicResource S113}" Height="52" FontSize="16"
+                    Style="{StaticResource ActionButton}" Background="#D93025"
+                    Click="Gmail_Click" Margin="7,0,0,0"/>
+        </Grid>
+
+        <!-- تعليمات -->
+        <Border Grid.Row="4" Background="#FFF6E5" BorderBrush="#F0C987"
+                BorderThickness="1" CornerRadius="8" Padding="12">
+            <StackPanel>
+                <TextBlock Text="{DynamicResource S114}" FontWeight="Bold" FontSize="14"
+                           Foreground="#8A6100" Margin="0,0,0,6"/>
+                <TextBlock TextWrapping="Wrap" FontSize="13" Foreground="#5F4600" LineHeight="22">
+                    1 - عند الضغط على أحد الزرين، ينسخ البرنامج ملف الفاتورة تلقائياً ويفتح واتساب أو جيميل مع نص الرسالة جاهزاً.<LineBreak/>
+                    2 - داخل محادثة واتساب أو رسالة جيميل، اضغط <Bold>Ctrl + V</Bold> فيُرفق ملف الفاتورة مباشرة.<LineBreak/>
+                    3 - ثم اضغط زر الإرسال.<LineBreak/>
+                    <Italic>ملاحظة: واتساب وجيميل لا يسمحان لأي برنامج بإرفاق الملفات آلياً لأسباب أمنية، لذلك تبقى خطوة اللصق ضرورية. يمكنك أيضاً سحب الملف من المجلد وإفلاته في المحادثة.</Italic>
+                </TextBlock>
+            </StackPanel>
+        </Border>
+
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,14,0,0">
+            <Button svc:UiVisibility.Key="ShareInvoice.CopyOnly_Click" Content="{DynamicResource S115}" Style="{StaticResource SecondaryButton}"
+                    Click="CopyOnly_Click" Margin="0,0,8,0"/>
+            <Button svc:UiVisibility.Key="ShareInvoice.Close_Click" Content="{DynamicResource S012}" Style="{StaticResource SecondaryButton}" Click="Close_Click"/>
+        </StackPanel>
+    </Grid>
+    </ScrollViewer>
+</Window>

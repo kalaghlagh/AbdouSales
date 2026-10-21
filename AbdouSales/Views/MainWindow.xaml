@@ -1,0 +1,113 @@
+<Window x:Class="AbdouSales.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:svc="clr-namespace:AbdouSales.Services"
+        Title="AbdouSales"
+        Height="620" Width="960"
+        WindowStartupLocation="CenterScreen"
+        FlowDirection="{DynamicResource AppFlowDirection}"
+        FontFamily="Segoe UI" Foreground="{DynamicResource BrushFieldText}"
+        Background="{DynamicResource BrushBackground}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- مبدّل اللغة -->
+        <StackPanel svc:UiVisibility.Key="Main.LangSwitch" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button x:Name="ArabicLangButton" Content="العربية" Click="ArabicLang_Click"
+                    Background="{StaticResource BrushDarkBlue}" Foreground="White" BorderThickness="0"
+                    Padding="10,5" Margin="0,0,4,0" Cursor="Hand" FontSize="12" FontWeight="SemiBold"/>
+            <Button x:Name="FrenchLangButton" Content="Français" Click="FrenchLang_Click"
+                    Background="#C7CFDA" Foreground="#333" BorderThickness="0"
+                    Padding="10,5" Cursor="Hand" FontSize="12" FontWeight="SemiBold"/>
+        </StackPanel>
+
+        <!-- شعار وعنوان -->
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,10,0,6">
+            <Border Width="90" Height="90" Background="{StaticResource BrushDarkBlue}" CornerRadius="18" HorizontalAlignment="Center">
+                <TextBlock Text="🧾" FontSize="42" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+            </Border>
+        </StackPanel>
+
+        <TextBlock Grid.Row="1" Text="AbdouSales" FontSize="30" FontWeight="Bold"
+                   Foreground="{DynamicResource BrushHeading}" HorizontalAlignment="Center" Margin="0,8,0,4"/>
+
+        <TextBlock Grid.Row="2" Text="By:K.ABDELLAH" FontSize="18"
+                   Foreground="{DynamicResource BrushTextMuted}" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+        <!-- بطاقات القائمة -->
+        <StackPanel Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <!-- صفّان من البطاقات؛ كل صف متمركز، فإخفاء بطاقة لا يترك فراغاً ولا يخلّ بالتخطيط -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Width="200" Height="120" Margin="8" Style="{StaticResource MenuTileButton}" Background="{StaticResource BrushBlue}"
+                    Click="NewInvoice_Click" svc:UiVisibility.Key="Main.NewInvoice">
+                <StackPanel>
+                    <TextBlock Text="📝" FontSize="30" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                    <TextBlock Text="{DynamicResource S079}" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" FontSize="15"/>
+                </StackPanel>
+            </Button>
+            <Button Width="200" Height="120" Margin="8" Style="{StaticResource MenuTileButton}" Background="{StaticResource BrushTeal}"
+                    Click="Cashier_Click" svc:UiVisibility.Key="Main.Cashier">
+                <StackPanel>
+                    <TextBlock Text="🛒" FontSize="30" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                    <TextBlock Text="{DynamicResource S037}" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" FontSize="15"/>
+                </StackPanel>
+            </Button>
+            <Button Width="200" Height="120" Margin="8" Style="{StaticResource MenuTileButton}" Background="#3F51B5"
+                    Click="Dashboard_Click" svc:UiVisibility.Key="Main.Dashboard">
+                <StackPanel>
+                    <TextBlock Text="📊" FontSize="30" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                    <TextBlock Text="{DynamicResource S129}" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" FontSize="15"/>
+                </StackPanel>
+            </Button>
+            <Button Width="200" Height="120" Margin="8" Style="{StaticResource MenuTileButton}" Background="{StaticResource BrushGreen}"
+                    Click="AddCustomer_Click" svc:UiVisibility.Key="Main.AddCustomer">
+                <StackPanel>
+                    <TextBlock Text="👤➕" FontSize="26" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                    <TextBlock Text="{DynamicResource S001}" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" FontSize="15"/>
+                </StackPanel>
+            </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Width="200" Height="120" Margin="8" Style="{StaticResource MenuTileButton}" Background="{StaticResource BrushOrange}"
+                    Click="AddSupplier_Click" svc:UiVisibility.Key="Main.AddSupplier">
+                <StackPanel>
+                    <TextBlock Text="🚚" FontSize="30" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                    <TextBlock Text="{DynamicResource S033}" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" FontSize="15"/>
+                </StackPanel>
+            </Button>
+            <Button Width="200" Height="120" Margin="8" Style="{StaticResource MenuTileButton}" Background="{StaticResource BrushPurple}"
+                    Click="AddProduct_Click" svc:UiVisibility.Key="Main.AddProduct">
+                <StackPanel>
+                    <TextBlock Text="📦" FontSize="30" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                    <TextBlock Text="{DynamicResource S013}" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" FontSize="15"/>
+                </StackPanel>
+            </Button>
+            <Button Width="200" Height="120" Margin="8" Style="{StaticResource MenuTileButton}" Background="{StaticResource BrushRose}"
+                    Click="TemplateChooser_Click" svc:UiVisibility.Key="Main.TemplateChooser">
+                <StackPanel>
+                    <TextBlock Text="🎨" FontSize="30" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                    <TextBlock Text="{DynamicResource S080}" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" FontSize="15"/>
+                </StackPanel>
+            </Button>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- روابط سفلية: قائمة الفواتير والإعدادات -->
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16,0,0">
+            <Button svc:UiVisibility.Key="Main.InvoiceList" Content="{DynamicResource S081}" Click="InvoiceList_Click"
+                    Background="Transparent" BorderThickness="0" Foreground="{DynamicResource BrushHeading}"
+                    FontSize="14" Cursor="Hand" Margin="12,0" FontWeight="SemiBold"/>
+            <Button Content="{DynamicResource S082}" Click="Settings_Click"
+                    Background="Transparent" BorderThickness="0" Foreground="{DynamicResource BrushHeading}"
+                    FontSize="14" Cursor="Hand" Margin="12,0" FontWeight="SemiBold"/>
+        </StackPanel>
+    </Grid>
+    </ScrollViewer>
+</Window>

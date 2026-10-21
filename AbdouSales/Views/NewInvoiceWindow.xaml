@@ -1,0 +1,239 @@
+<Window x:Class="AbdouSales.Views.NewInvoiceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:svc="clr-namespace:AbdouSales.Services"
+        Title="{DynamicResource S079}" Height="640" Width="1100" MinHeight="520" MinWidth="900"
+        WindowStartupLocation="CenterScreen"
+        FlowDirection="{DynamicResource AppFlowDirection}" FontFamily="Segoe UI" Foreground="{DynamicResource BrushFieldText}"
+        Background="{DynamicResource BrushBackground}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="{DynamicResource S079}" FontSize="22" FontWeight="Bold"
+                   Foreground="{StaticResource BrushBlue}" Margin="0,0,0,14"/>
+
+        <!-- ===== رقم الفاتورة / التاريخ ===== -->
+        <Border Grid.Row="1" Background="{DynamicResource BrushSurface}" CornerRadius="10" Padding="16" BorderBrush="{DynamicResource BrushBorder}" BorderThickness="1" Margin="0,0,0,12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="{DynamicResource S063}" Style="{StaticResource InputLabel}"/>
+                    <TextBox x:Name="InvoiceNumberBox"/>
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="{DynamicResource S064}" Style="{StaticResource InputLabel}"/>
+                        <DatePicker x:Name="InvoiceDatePicker" SelectedDateChanged="InvoiceDate_Changed"/>
+                    </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ===== بيانات الممون (ترويسة الفاتورة) ===== -->
+        <Border Grid.Row="2" Background="{DynamicResource BrushSurface}" CornerRadius="10" Padding="16" BorderBrush="{DynamicResource BrushBorder}" BorderThickness="1" Margin="0,0,0,12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
+                    <TextBlock Text="{DynamicResource S155}" Style="{StaticResource InputLabel}"/>
+                    <ComboBox x:Name="SupplierCombo" DisplayMemberPath="Name" SelectionChanged="SupplierCombo_SelectionChanged"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Grid.Column="0">
+                    <TextBlock Text="{DynamicResource S035}" Style="{StaticResource InputLabel}"/>
+                    <TextBox svc:FieldHint.Text="{DynamicResource S166}" x:Name="SupplierNameBox" TextChanged="SupplierNameBox_TextChanged"/>
+                </StackPanel>
+                <StackPanel svc:UiVisibility.Key="NewInvoice.SupplierActivityBox" Grid.Row="2" Grid.Column="2">
+                    <TextBlock Text="{DynamicResource S004}" Style="{StaticResource InputLabel}"/>
+                    <TextBox svc:FieldHint.Text="{DynamicResource S167}" x:Name="SupplierActivityBox"/>
+                </StackPanel>
+                <StackPanel svc:UiVisibility.Key="NewInvoice.SupplierAddressBox" Grid.Row="2" Grid.Column="4">
+                    <TextBlock Text="{DynamicResource S005}" Style="{StaticResource InputLabel}"/>
+                    <TextBox svc:FieldHint.Text="{DynamicResource S168}" x:Name="SupplierAddressBox"/>
+                </StackPanel>
+
+                <StackPanel svc:UiVisibility.Key="NewInvoice.SupplierCommercialRegisterBox" Grid.Row="4" Grid.Column="0">
+                    <TextBlock Text="{DynamicResource S007}" Style="{StaticResource InputLabel}"/>
+                    <TextBox svc:FieldHint.Text="{DynamicResource S170}" x:Name="SupplierCommercialRegisterBox" svc:BidiText.KeepOrder="True" TextAlignment="Left" FlowDirection="LeftToRight"/>
+                </StackPanel>
+                <StackPanel svc:UiVisibility.Key="NewInvoice.SupplierTaxIdBox" Grid.Row="4" Grid.Column="2">
+                    <TextBlock Text="{DynamicResource S008}" Style="{StaticResource InputLabel}"/>
+                    <TextBox svc:FieldHint.Text="{DynamicResource S171}" x:Name="SupplierTaxIdBox" FlowDirection="LeftToRight"/>
+                </StackPanel>
+                <StackPanel svc:UiVisibility.Key="NewInvoice.SupplierArticleNumberBox" Grid.Row="4" Grid.Column="4">
+                    <TextBlock Text="{DynamicResource S099}" Style="{StaticResource InputLabel}"/>
+                    <TextBox svc:FieldHint.Text="{DynamicResource S172}" x:Name="SupplierArticleNumberBox" FlowDirection="LeftToRight"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ===== معلومات الزبون ===== -->
+        <Border Grid.Row="3" Background="{DynamicResource BrushSurface}" CornerRadius="10" Padding="16" BorderBrush="{DynamicResource BrushBorder}" BorderThickness="1" Margin="0,0,0,12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
+                    <TextBlock Text="{DynamicResource S083}" Style="{StaticResource InputLabel}"/>
+                    <ComboBox x:Name="CustomerCombo" DisplayMemberPath="Name" SelectionChanged="CustomerCombo_SelectionChanged"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Grid.Column="0">
+                    <TextBlock Text="{DynamicResource S003}" Style="{StaticResource InputLabel}"/>
+                    <TextBox svc:FieldHint.Text="{DynamicResource S166}" x:Name="CustomerNameBox"/>
+                </StackPanel>
+                <StackPanel svc:UiVisibility.Key="NewInvoice.CustomerActivityBox" Grid.Row="2" Grid.Column="2">
+                    <TextBlock Text="{DynamicResource S004}" Style="{StaticResource InputLabel}"/>
+                    <TextBox svc:FieldHint.Text="{DynamicResource S167}" x:Name="CustomerActivityBox"/>
+                </StackPanel>
+                <StackPanel svc:UiVisibility.Key="NewInvoice.CustomerAddressBox" Grid.Row="2" Grid.Column="4">
+                    <TextBlock Text="{DynamicResource S005}" Style="{StaticResource InputLabel}"/>
+                    <TextBox svc:FieldHint.Text="{DynamicResource S168}" x:Name="CustomerAddressBox"/>
+                </StackPanel>
+
+                <StackPanel svc:UiVisibility.Key="NewInvoice.CustomerCommercialRegisterBox" Grid.Row="4" Grid.Column="0">
+                    <TextBlock Text="{DynamicResource S007}" Style="{StaticResource InputLabel}"/>
+                    <TextBox svc:FieldHint.Text="{DynamicResource S170}" x:Name="CustomerCommercialRegisterBox" svc:BidiText.KeepOrder="True" TextAlignment="Left" FlowDirection="LeftToRight"/>
+                </StackPanel>
+                <StackPanel svc:UiVisibility.Key="NewInvoice.CustomerTaxIdBox" Grid.Row="4" Grid.Column="2">
+                    <TextBlock Text="{DynamicResource S008}" Style="{StaticResource InputLabel}"/>
+                    <TextBox svc:FieldHint.Text="{DynamicResource S171}" x:Name="CustomerTaxIdBox" FlowDirection="LeftToRight"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ===== جدول السلع ===== -->
+        <Border Grid.Row="4" MinHeight="300" Background="{DynamicResource BrushSurface}" CornerRadius="10" Padding="12" BorderBrush="{DynamicResource BrushBorder}" BorderThickness="1" Margin="0,0,0,12">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="4,0,4,8">
+                    <TextBlock Text="{DynamicResource S084}" FontWeight="Bold" FontSize="15" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                    <ComboBox x:Name="ProductPickerCombo" Width="240" DisplayMemberPath="Name" Margin="0,0,8,0" IsEnabled="False"/>
+                    <Button svc:UiVisibility.Key="NewInvoice.AddLineFromStock_Click" Content="{DynamicResource S085}" Style="{StaticResource ActionButton}" Click="AddLineFromStock_Click" Margin="0,0,8,0"/>
+                    <Button svc:UiVisibility.Key="NewInvoice.AddManualLine_Click" Content="{DynamicResource S086}" Style="{StaticResource SecondaryButton}" Click="AddManualLine_Click" Margin="0,0,8,0"/>
+                    <Button svc:UiVisibility.Key="NewInvoice.RemoveLine_Click" Content="{DynamicResource S087}" Style="{StaticResource DangerButton}" Click="RemoveLine_Click"/>
+                </StackPanel>
+
+                <TextBlock Grid.Row="1" x:Name="ProductFilterHint" Foreground="{DynamicResource BrushTextMuted}" FontSize="12"
+                           Margin="4,0,4,8" TextWrapping="Wrap" Visibility="Collapsed"/>
+
+                <DataGrid Grid.Row="2" x:Name="LinesGrid" AutoGenerateColumns="False" CanUserAddRows="False"
+                          MinHeight="250" Height="250"
+                          Background="{DynamicResource BrushSurface}" BorderBrush="{DynamicResource BrushBorder}" BorderThickness="1"
+                          HeadersVisibility="Column"
+                          CanUserResizeRows="False"
+                          CellEditEnding="LinesGrid_CellEditEnding">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{DynamicResource S030}" Binding="{Binding ProductName}" Width="2.5*"/>
+                        <DataGridTextColumn Header="{DynamicResource S164}" Binding="{Binding Barcode}" Width="1.3*" IsReadOnly="True"
+                                            ElementStyle="{StaticResource LtrCellText}"/>
+                        <DataGridTextColumn Header="{DynamicResource S016}" Binding="{Binding Unit}" Width="*"/>
+                        <DataGridTextColumn Header="{DynamicResource S040}" Binding="{Binding Quantity}" Width="*"/>
+                        <DataGridTextColumn Header="{DynamicResource S025}" Binding="{Binding UnitPrice}" Width="1.4*"/>
+                        <DataGridTextColumn Header="{DynamicResource S163}" Binding="{Binding CostPrice, StringFormat={}{0:N2}}" Width="1.3*" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="{DynamicResource S046}" Binding="{Binding Total, StringFormat={}{0:N2}}" Width="1.4*" IsReadOnly="True"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+
+        <!-- ===== المجاميع وطريقة الدفع ===== -->
+        <Border Grid.Row="5" Background="{DynamicResource BrushSurface}" CornerRadius="10" Padding="16" BorderBrush="{DynamicResource BrushBorder}" BorderThickness="1" Margin="0,0,0,12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.3*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <StackPanel svc:UiVisibility.Key="NewInvoice.PaymentMethodCombo" Orientation="Horizontal" Margin="0,0,0,8">
+                        <TextBlock Text="{DynamicResource S088}" Width="150" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                        <ComboBox x:Name="PaymentMethodCombo" Width="180" SelectionChanged="PaymentMethodCombo_SelectionChanged">
+                            <ComboBoxItem Content="{DynamicResource S049}" IsSelected="True"/>
+                            <ComboBoxItem Content="{DynamicResource S051}"/>
+                            <ComboBoxItem Content="{DynamicResource S089}"/>
+                            <ComboBoxItem Content="{DynamicResource S090}"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel svc:UiVisibility.Key="NewInvoice.VatRateBox" Orientation="Horizontal" Margin="0,0,0,8">
+                        <TextBlock Text="{DynamicResource S091}" Width="150" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                        <TextBox x:Name="VatRateBox" Width="100" Text="19" TextChanged="Totals_Changed"/>
+                    </StackPanel>
+                    <StackPanel svc:UiVisibility.Key="NewInvoice.FiscalStampBox" Orientation="Horizontal" Margin="0,0,0,8">
+                        <TextBlock Text="{DynamicResource S092}" Width="150" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                        <TextBox x:Name="FiscalStampBox" Width="100" Text="0" TextChanged="Totals_Changed"/>
+                    </StackPanel>
+                    <StackPanel svc:UiVisibility.Key="NewInvoice.IsPaidCheckBox" Orientation="Horizontal">
+                        <TextBlock Text=" " Width="150"/>
+                        <CheckBox x:Name="IsPaidCheckBox" Content="{DynamicResource S147}" IsChecked="True" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,4">
+                        <TextBlock Text="{DynamicResource S053}" Width="180" TextAlignment="Left"/>
+                        <TextBlock x:Name="SubTotalText" Text="0.00 د.ج" FontWeight="SemiBold" Width="140" TextAlignment="Left"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,4">
+                        <TextBlock Text="{DynamicResource S054}" Width="180" TextAlignment="Left"/>
+                        <TextBlock x:Name="VatText" Text="0.00 د.ج" FontWeight="SemiBold" Width="140" TextAlignment="Left"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,4">
+                        <TextBlock Text="{DynamicResource S055}" Width="180" TextAlignment="Left" FontWeight="Bold" FontSize="16"/>
+                        <TextBlock x:Name="GrandTotalText" Text="0.00 د.ج" FontWeight="Bold" FontSize="16" Width="140" TextAlignment="Left" Foreground="{StaticResource BrushBlue}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ===== أزرار الإجراءات ===== -->
+        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Left">
+            <Button svc:UiVisibility.Key="NewInvoice.SaveInvoice_Click" Content="{DynamicResource S093}" Style="{StaticResource ActionButton}" Click="SaveInvoice_Click" Margin="0,0,8,0"/>
+            <Button svc:UiVisibility.Key="NewInvoice.PrintPreview_Click" Content="{DynamicResource S094}" Style="{StaticResource ActionButton}" Background="{StaticResource BrushDarkBlue}" Click="PrintPreview_Click" Margin="0,0,8,0"/>
+            <Button svc:UiVisibility.Key="NewInvoice.Cancel_Click" Content="{DynamicResource S095}" Style="{StaticResource SecondaryButton}" Click="Cancel_Click"/>
+        </StackPanel>
+    </Grid>
+    </ScrollViewer>
+</Window>

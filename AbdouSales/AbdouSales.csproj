@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>AbdouSales</AssemblyName>
+    <RootNamespace>AbdouSales</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <ApplicationTitle>AbdouSales</ApplicationTitle>
+  </PropertyGroup>
+
+  <!-- ============ إعدادات النشر والتوزيع (أُضيفت للتثبيت على جهاز آخر) ============ -->
+  <PropertyGroup>
+    <!-- أيقونة التطبيق: تُدمج داخل ملف EXE وتظهر في المستكشف وشريط المهام ونوافذ البرنامج -->
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+
+    <!-- معلومات النسخة والمُنتِج (تظهر في خصائص الملف وفي "إضافة أو إزالة البرامج") -->
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Product>AbdouSales</Product>
+    <AssemblyTitle>AbdouSales</AssemblyTitle>
+    <Company>AbdouSales</Company>
+    <Description>برنامج تحرير الفواتير وإدارة الزبائن والمخزون</Description>
+    <Copyright>© 2026</Copyright>
+
+    <!-- منع توليد ملفات تصحيح الأخطاء في وضع Release -->
+    <DebugType Condition="'$(Configuration)' == 'Release'">none</DebugType>
+  </PropertyGroup>
+
+</Project>

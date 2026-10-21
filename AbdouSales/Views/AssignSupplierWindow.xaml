@@ -1,0 +1,23 @@
+<Window x:Class="AbdouSales.Views.AssignSupplierWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{DynamicResource S176}" Width="480" SizeToContent="Height"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        FlowDirection="{DynamicResource AppFlowDirection}" FontFamily="Segoe UI" Foreground="{DynamicResource BrushFieldText}"
+        Background="{DynamicResource BrushBackground}">
+    <StackPanel Margin="20">
+        <TextBlock x:Name="InfoText" FontSize="15" FontWeight="SemiBold" TextWrapping="Wrap"
+                   Foreground="{DynamicResource BrushHeading}" Margin="0,0,0,14"/>
+
+        <TextBlock Text="{DynamicResource S177}" Style="{StaticResource InputLabel}"/>
+        <ComboBox x:Name="SupplierCombo" DisplayMemberPath="Name" Margin="0,0,0,12"/>
+
+        <CheckBox x:Name="MoveCheck" Content="{DynamicResource S178}" FontSize="13.5" Margin="0,0,0,18"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+            <Button Content="{DynamicResource S179}" Style="{StaticResource ActionButton}"
+                    Background="{StaticResource BrushPurple}" Click="Ok_Click" Margin="0,0,8,0"/>
+            <Button Content="{DynamicResource S180}" Style="{StaticResource SecondaryButton}" Click="Cancel_Click"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

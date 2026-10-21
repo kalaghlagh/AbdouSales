@@ -1,0 +1,59 @@
+<Window x:Class="AbdouSales.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{DynamicResource S074}"
+        Height="460" Width="400"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        FlowDirection="{DynamicResource AppFlowDirection}"
+        FontFamily="Segoe UI" Foreground="{DynamicResource BrushFieldText}"
+        Background="{DynamicResource BrushBackground}"
+        WindowStyle="SingleBorderWindow">
+    <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- شعار -->
+        <Border Grid.Row="0" Width="80" Height="80" Background="{StaticResource BrushDarkBlue}"
+                CornerRadius="18" HorizontalAlignment="Center" Margin="0,0,0,14">
+            <TextBlock Text="🔒" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+        </Border>
+
+        <TextBlock Grid.Row="1" Text="{DynamicResource S074}" FontSize="24" FontWeight="Bold"
+                   Foreground="{DynamicResource BrushHeading}" HorizontalAlignment="Center" Margin="0,0,0,4"/>
+
+        <TextBlock Grid.Row="2" Text="AbdouSales" FontSize="14"
+                   Foreground="{DynamicResource BrushTextMuted}" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+        <!-- اسم المستخدم -->
+        <StackPanel Grid.Row="3" Margin="0,0,0,12">
+            <TextBlock Text="{DynamicResource S075}" Style="{StaticResource InputLabel}"/>
+            <TextBox x:Name="UsernameBox" KeyDown="Input_KeyDown"/>
+        </StackPanel>
+
+        <!-- كلمة المرور -->
+        <StackPanel Grid.Row="4" Margin="0,0,0,4">
+            <TextBlock Text="{DynamicResource S076}" Style="{StaticResource InputLabel}"/>
+            <PasswordBox x:Name="PasswordBox" Padding="8,6" FontSize="14" MinHeight="38"
+                         BorderBrush="{DynamicResource BrushBorder}" BorderThickness="1"
+                         Background="{DynamicResource BrushSurface}" VerticalContentAlignment="Center"
+                         KeyDown="Input_KeyDown"/>
+        </StackPanel>
+
+        <!-- رسالة الخطأ -->
+        <TextBlock Grid.Row="5" x:Name="ErrorText" Text="{DynamicResource S077}"
+                   Foreground="#E05555" FontSize="13" FontWeight="SemiBold"
+                   HorizontalAlignment="Center" Margin="0,10,0,0" Visibility="Collapsed"/>
+
+        <!-- زر الدخول -->
+        <Button Grid.Row="6" Content="{DynamicResource S078}" Style="{StaticResource ActionButton}"
+                HorizontalAlignment="Stretch" Margin="0,18,0,0" Click="Login_Click"/>
+    </Grid>
+</Window>

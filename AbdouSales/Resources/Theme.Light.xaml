@@ -1,0 +1,25 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Light theme (default) -->
+    <sys:String x:Key="AppThemeName">Light</sys:String>
+
+    <SolidColorBrush x:Key="BrushBackground" Color="#F3F5F9"/>
+    <SolidColorBrush x:Key="BrushSurface" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="BrushSurfaceAlt" Color="#F8FAFD"/>
+    <SolidColorBrush x:Key="BrushHeaderBg" Color="#EEF2F8"/>
+    <SolidColorBrush x:Key="BrushHover" Color="#EAF0F8"/>
+    <SolidColorBrush x:Key="BrushBorder" Color="#D8DEE9"/>
+    <SolidColorBrush x:Key="BrushGridLine" Color="#E6EAF1"/>
+    <SolidColorBrush x:Key="BrushTextMuted" Color="#8A94A6"/>
+    <SolidColorBrush x:Key="BrushFieldBorder" Color="#A9B5C6"/>
+    <SolidColorBrush x:Key="BrushFieldHover" Color="#6F7F96"/>
+    <SolidColorBrush x:Key="BrushFieldText" Color="#1F2937"/>
+    <SolidColorBrush x:Key="BrushFieldFocusBg" Color="#F7FAFF"/>
+    <SolidColorBrush x:Key="BrushFieldReadOnlyBg" Color="#F3F5F9"/>
+    <SolidColorBrush x:Key="BrushFieldDisabledBg" Color="#EEF1F5"/>
+    <SolidColorBrush x:Key="BrushHint" Color="#9AA5B6"/>
+    <SolidColorBrush x:Key="BrushHeading" Color="#1F4E8C"/>
+
+</ResourceDictionary>
